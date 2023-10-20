@@ -30,7 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Button_Caesar_clicked()
 {
-    //hide();
+    hide();
     Caesar caesarWindow;
     caesarWindow.setModal(true);
     caesarWindow.exec();
