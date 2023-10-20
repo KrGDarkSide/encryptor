@@ -15,6 +15,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_Button_Caesar_clicked();
+
+    void on_Button_Polybius_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
