@@ -20,6 +20,8 @@ private slots:
 
     void on_Button_Polybius_clicked();
 
+    void on_Button_info_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
