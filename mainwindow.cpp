@@ -47,6 +47,6 @@ void MainWindow::on_Button_Polybius_clicked()
 
 void MainWindow::on_Button_info_clicked()
 {
-    QMessageBox::information(this,"Informations", "<strong>encryptor</strong><table><tr><td>Version:</td><td>0.0.1</td></tr><tr><td>Creator:</td><td>Krystian Grzesiak<td></tr><tr><td>Contact:</td><td>jul.mdama08@gmail.com</td></tr></table>", QMessageBox::Ok);
+    QMessageBox::information(this, "Informations", "<strong>encryptor</strong><table><tr><td>Version:</td><td>0.0.1</td></tr><tr><td>Creator:</td><td>Krystian Grzesiak<td></tr><tr><td>Contact:</td><td>jul.mdama08@gmail.com</td></tr></table>", QMessageBox::Ok);
 }
 
