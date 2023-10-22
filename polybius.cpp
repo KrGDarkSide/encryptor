@@ -6,6 +6,9 @@ Polybius::Polybius(QWidget *parent) :
     ui(new Ui::Polybius)
 {
     ui->setupUi(this);
+
+    ui->tableWidget1->setStyleSheet("background-color: #f0f0f0;");
+    ui->tableWidget2->setStyleSheet("background-color: #f0f0f0;");
 }
 
 Polybius::~Polybius()

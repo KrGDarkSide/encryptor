@@ -39,6 +39,7 @@ void MainWindow::on_Button_Caesar_clicked()
 
 void MainWindow::on_Button_Polybius_clicked()
 {
+    hide();
     Polybius polybiusWindow;
     polybiusWindow.setModal(true);
     polybiusWindow.exec();
