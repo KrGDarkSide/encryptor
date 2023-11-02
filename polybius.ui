@@ -428,6 +428,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string>Save table</string>
    </property>
@@ -452,6 +455,9 @@
      <family>Bahnschrift</family>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>New table</string>
@@ -478,6 +484,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string>Import table</string>
    </property>
@@ -497,6 +506,9 @@
      <pointsize>14</pointsize>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>ENCRYPT</string>
@@ -562,6 +574,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string>Import table</string>
    </property>
@@ -581,6 +596,9 @@
      <pointsize>14</pointsize>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>DECRYPT</string>
@@ -861,6 +879,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string>Save table</string>
    </property>
@@ -881,13 +902,13 @@
     </font>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>270</x>
      <y>180</y>
      <width>220</width>
-     <height>81</height>
+     <height>88</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -898,6 +919,9 @@
         <family>Bahnschrift</family>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Convert to UTF-8</string>
@@ -912,6 +936,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
        <string>Convert to binary</string>
       </property>
@@ -925,8 +952,12 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
-       <string>Convert to UTF-8 and to binary</string>
+       <string>Convert to UTF-8 
+ and to binary</string>
       </property>
      </widget>
     </item>

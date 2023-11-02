@@ -37,6 +37,7 @@ void MainWindow::on_Button_Caesar_clicked()
     hide();
     Caesar caesarWindow;
     caesarWindow.setModal(true);
+    // Disable possibility of resizing window
     caesarWindow.setFixedSize(caesarWindow.size());
     caesarWindow.exec();
 }
@@ -48,6 +49,7 @@ void MainWindow::on_Button_Polybius_clicked()
     hide();
     Polybius polybiusWindow;
     polybiusWindow.setModal(true);
+    // Disable possibility of resizing window
     polybiusWindow.setFixedSize(polybiusWindow.size());
     polybiusWindow.exec();
 }
