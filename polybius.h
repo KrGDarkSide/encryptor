@@ -15,6 +15,11 @@ public:
     explicit Polybius(QWidget *parent = nullptr);
     ~Polybius();
 
+private slots:
+    void on_pushButton2_clicked();
+
+    void on_Button_encrypt_clicked();
+
 private:
     Ui::Polybius *ui;
 };
