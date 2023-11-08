@@ -82,15 +82,25 @@ QString polibius_square_encryption(QString text, QChar arr[5][7])
     {
         QChar current_char = text[i];
 
-        for (int j = 0; j < 5; j++)
+        // Checking if actual character is number
+        if (current_char >= QChar(0x30) && current_char <= QChar(0x39))
         {
-            for (int k = 0; k < 7; k++)
+            new_word += '[' + current_char + ']';
+        }
+        else
+        {
+            // Stepping into the alphabet table
+            for (int j = 0; j < 5; j++)
             {
-                if (arr[j][k] == current_char)
+                for (int k = 0; k < 7; k++)
                 {
-                    new_word += QString::number(k + 1);
-                    new_word += QString::number(j + 1);
-                    break;
+                    if (arr[j][k] == current_char)
+                    {
+                        // If we used 'QChar(k)' then we will get '▯'
+                        new_word += QString::number(k + 1);
+                        new_word += QString::number(j + 1);
+                        break;
+                    }
                 }
             }
         }
