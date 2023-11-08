@@ -64,6 +64,7 @@ Polybius::Polybius(QWidget *parent) :
         for (int j = 0; j < 7; j++)
         {
             ui->tableWidget1->setItem(i, j, new QTableWidgetItem(square[i][j]));
+            ui->tableWidget2->setItem(i, j, new QTableWidgetItem(square[i][j]));
         }
     }
 }
@@ -87,8 +88,8 @@ QString polibius_square_encryption(QString text, QChar arr[5][7])
             {
                 if (arr[j][k] == current_char)
                 {
-                    new_word += QChar(k);
-                    new_word += QChar(j);
+                    new_word += QString::number(k + 1);
+                    new_word += QString::number(j + 1);
                     break;
                 }
             }
@@ -107,6 +108,7 @@ void Polybius::on_pushButton2_clicked()
         for (int j = 0; j < 7; j++)
         {
             ui->tableWidget1->setItem(i, j, new QTableWidgetItem(square[i][j]));
+            ui->tableWidget2->setItem(i, j, new QTableWidgetItem(square[i][j]));
         }
     }
 }
