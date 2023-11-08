@@ -20,6 +20,8 @@ private slots:
 
     void on_Button_encrypt_clicked();
 
+    void on_Button_decrypt_clicked();
+
 private:
     Ui::Polybius *ui;
 };

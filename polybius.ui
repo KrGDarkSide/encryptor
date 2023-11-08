@@ -581,7 +581,7 @@
     <string>Import table</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="Button_encrypt2">
+  <widget class="QPushButton" name="Button_decrypt">
    <property name="geometry">
     <rect>
      <x>780</x>

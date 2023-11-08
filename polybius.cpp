@@ -85,7 +85,7 @@ QString polibius_square_encryption(QString text, QChar arr[5][7])
         // Checking if actual character is number
         if (current_char >= QChar(0x30) && current_char <= QChar(0x39))
         {
-            new_word += '[' + current_char + ']';
+            new_word += ':' + current_char;
         }
         else
         {
@@ -103,6 +103,28 @@ QString polibius_square_encryption(QString text, QChar arr[5][7])
                     }
                 }
             }
+        }
+    }
+
+    return new_word;
+}
+
+QString polibius_square_decryption(QString text, QChar arr[5][7])
+{
+    QString new_word = "";
+
+    for (int i = 0; i < text.length(); i += 2)
+    {
+        QChar current_char1 = text[i];
+        QChar current_char2 = text[i + 1];
+
+        if(current_char1 == ':')
+        {
+            new_word += current_char2;
+        }
+        else
+        {
+            new_word += arr[current_char2.digitValue() - 1][current_char1.digitValue() - 1];
         }
     }
 
@@ -141,6 +163,20 @@ void Polybius::on_Button_encrypt_clicked()
     }
 }
 
+void Polybius::on_Button_decrypt_clicked()
+{
+    ui->textEdit4->clear();
 
+    QString text = (ui->textEdit3->toPlainText()).toLower();
 
+    if (text.isEmpty())
+    {
+        QMessageBox::warning(this, "Warning", "You must enter any text if you want to run that process!", QMessageBox::Ok);
+    }
+    else
+    {
+        QString decrypted_message = polibius_square_decryption(text, square);
+        ui->textEdit4->append(decrypted_message);
+    }
+}
 
