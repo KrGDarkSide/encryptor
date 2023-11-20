@@ -114,18 +114,24 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
 {
     QString new_word = "";
 
-    for (int i = 0; i < text.length(); i += 2)
+    if (text[0] == '#')
     {
-        QChar current_char1 = text[i];
-        QChar current_char2 = text[i + 1];
+    }
+    else
+    {
+        for (int i = 0; i < text.length(); i += 2)
+        {
+            QChar current_char1 = text[i];
+            QChar current_char2 = text[i + 1];
 
-        if(current_char1 == ':')
-        {
-            new_word += current_char2;
-        }
-        else
-        {
-            new_word += arr[current_char2.digitValue() - 1][current_char1.digitValue() - 1];
+            if(current_char1 == ':')
+            {
+                new_word += current_char2;
+            }
+            else
+            {
+                new_word += arr[current_char2.digitValue() - 1][current_char1.digitValue() - 1];
+            }
         }
     }
 
