@@ -940,7 +940,7 @@
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
-       <string>Convert to binary</string>
+       <string>Convert to Octal</string>
       </property>
      </widget>
     </item>
@@ -956,8 +956,7 @@
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
-       <string>Convert to UTF-8 
- and to binary</string>
+       <string>None</string>
       </property>
      </widget>
     </item>

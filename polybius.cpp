@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <QMessageBox>
+#include <sstream>
 
 const int alphabet[] = { 0x61, 0x105, 0x62, 0x63, 0x107, 0x64, 0x65, 0x119, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x142, 0x6d, 0x6e, 0x144, 0x6f, 0xf3, 0x70, 0x71, 0x72, 0x73, 0x15b, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x17a, 0x17c };
 QChar square[5][7];
@@ -131,6 +132,31 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
     return new_word;
 }
 
+// CONVERT QString to octal number saved in QString type.
+QString toOCT(QString message)
+{
+    QString new_message = "#";
+    new_message += QString::number(rand() % 4);
+
+    // Run across all character
+    for (int i = 1; i < message.length(); i += 2)
+    {
+        // create number from two other numbers. Two because one letter in normal encryption give us two number (column; row)
+        int number = message[i - 1].digitValue() * 10 + message[i].digitValue();
+        QString oct = "";
+
+        while (number != 0)
+        {
+            oct = QString::number(number % 8) + oct;
+            number /= 8;
+        }
+        new_message += oct;
+        oct = "";
+    }
+
+    return new_message;
+}
+
 void Polybius::on_pushButton2_clicked()
 {
     generate_new_array(square);
@@ -159,6 +185,18 @@ void Polybius::on_Button_encrypt_clicked()
     else
     {
         QString encrypted_message = polibius_square_encryption(text, square);
+
+        // CONVERT RESOULT TO OCTAL
+        if (ui->radioButton->isChecked())
+        {
+            encrypted_message = toOCT(encrypted_message);
+        }
+        // CONVERT TO UTF-8
+        else if (ui->radioButton_2->isChecked())
+        {
+
+        }
+        // WHEN NOTHING IS CHOUSE FROM RADIOBUTTONS OR USER CLIC NONE we WILL SKIP if else SECTION.
         ui->textEdit2->append(encrypted_message);
     }
 }
