@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <QMessageBox>
-#include <sstream>
 
 const int alphabet[] = { 0x61, 0x105, 0x62, 0x63, 0x107, 0x64, 0x65, 0x119, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x142, 0x6d, 0x6e, 0x144, 0x6f, 0xf3, 0x70, 0x71, 0x72, 0x73, 0x15b, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x17a, 0x17c };
 QChar square[5][7];
@@ -116,6 +115,17 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
 
     if (text[0] == '#')
     {
+        if (text[1] % 2 == 0)
+        {
+            for (int i = 2; i <text.length(); i += 2)
+            {
+                int oct_num = text[i].digitValue() * 10 + text[i + 1].digitValue();
+            }
+        }
+        else
+        {
+
+        }
     }
     else
     {
@@ -142,9 +152,10 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
 QString toOCT(QString message)
 {
     QString new_message = "#";
-    new_message += QString::number(rand() % 4);
+    // RAND EVEN NUMBER (It will symbolize that our messzge is encrypted using octal.)
+    new_message += QString::number((rand() % 5) * 2);
 
-    // Run across all character
+    // Run across all characters
     for (int i = 1; i < message.length(); i += 2)
     {
         // create number from two other numbers. Two because one letter in normal encryption give us two number (column; row)
