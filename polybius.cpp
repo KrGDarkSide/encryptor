@@ -91,15 +91,27 @@ QString fromOCT(QString message)
 {
     QString new_message = "";
 
-    for (int i = 0; i < message.length(); i += 3)
+    // i = 2 because before we have # and parity number.
+    for (int i = 2; i < message.length(); i += 3)
     {
         // Checking if element is numberr
-        if (message[i] == ":") { new_message += message[i++]; }
+        if (message[i] == ':') { new_message += ':' + message[i+1]; i--; }
         else
         {
-            // ZAMIANA Z oct na dziesiątkowy.
+            // GET OCTAL NUMBER
+            QString actual_char = message.mid(i, 3);
+
+            // Adding all elemnts of octal to one to get decimal number.
+            int num = 0;
+            num += actual_char[0].digitValue() * (8 * 8);
+            num += actual_char[1].digitValue() * 8;
+            num += actual_char[2].digitValue();
+
+            new_message += QString::number(num);
         }
     }
+
+    return new_message;
 }
 
 Polybius::Polybius(QWidget *parent) :
@@ -178,13 +190,14 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
     {
         if (text[1].digitValue() % 2 == 0 || text[1].digitValue() == 0)
         {
-            // zapis do text
+            text = fromOCT(text);
         }
         else
         {
-
+            // inne opcje szyfrowania
         }
     }
+
     for (int i = 0; i < text.length(); i += 2)
     {
         QChar current_char1 = text[i];
