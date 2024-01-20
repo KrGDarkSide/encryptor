@@ -114,6 +114,19 @@ QString fromOCT(QString message)
     return new_message;
 }
 
+
+// CONVERT QString to Hexadecimal number saved in QString type.
+QString toHEX(QString message)
+{
+    // ...
+}
+
+// CONVERT from hex to decimal
+QString fromHEX(QString message);
+{
+    // ...
+}
+
 Polybius::Polybius(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Polybius)
@@ -190,11 +203,13 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
     {
         if (text[1].digitValue() % 2 == 0 || text[1].digitValue() == 0)
         {
+            // Rewrite actual content of text variable with converted from Octal.
             text = fromOCT(text);
         }
         else
         {
-            // inne opcje szyfrowania
+            // Rewrite actual content in decimal from hex.
+            text = fromHEX(text);
         }
     }
 
@@ -250,10 +265,10 @@ void Polybius::on_Button_encrypt_clicked()
         {
             encrypted_message = toOCT(encrypted_message);
         }
-        // CONVERT TO UTF-8
+        // CONVERT TO Hexadecimal
         else if (ui->radioButton_2->isChecked())
         {
-
+            encrypted_message = toHEX(encrypted_message);
         }
         // WHEN NOTHING IS CHOUSE FROM RADIOBUTTONS OR USER CLIC NONE we WILL SKIP if else SECTION.
         ui->textEdit2->append(encrypted_message);

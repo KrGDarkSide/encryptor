@@ -924,7 +924,7 @@
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
-       <string>Convert to UTF-8</string>
+       <string>Convert to Hexadecimal</string>
       </property>
      </widget>
     </item>
