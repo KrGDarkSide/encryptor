@@ -57,7 +57,7 @@ QString toOCT(QString message)
         // Check if element is number
         if (message[i - 1] == ':')
         {
-            new_message = new_message + message[i - 1] + message[i] + 0;
+            new_message += ':' + message[i];
         }
         else
         {
@@ -75,11 +75,10 @@ QString toOCT(QString message)
             //      So we need string containing 3 characters.
             if (oct.length() != 3)
             {
-                oct = "0" + oct;
+                oct = '0' + oct;
             }
 
             new_message += oct;
-            oct = "";
         }
     }
 
@@ -118,14 +117,67 @@ QString fromOCT(QString message)
 // CONVERT QString to Hexadecimal number saved in QString type.
 QString toHEX(QString message)
 {
-    // ...
+    QString new_message = "#";
+    // RAND ODD NUMBER (It will symbolize that text is in Hex)
+    new_message += QString::number((rand() % 5) * 2 + 1);
+
+    // RUN accross string and take 2 numbers to convert them to Hex.
+    for (int i = 1; i < message.length(); i += 2)
+    {
+        // Check if actual chars are number
+        if (message[i - 1] == ':')
+        {
+            new_message += ':' + message[i];
+        }
+        else
+        {
+            // CREATE new number from (column; row).
+            int number = message[i - 1].digitValue() * 10 + message[i].digitValue();
+            QString hex = "";
+
+            while (number != 0)
+            {
+                // Switch case to check if num is form 10 to 15 and set it value to letter.
+                switch (number % 16)
+                {
+                case 10:
+                    hex = "a" + hex;
+                    break;
+                case 11:
+                    hex = "b" + hex;
+                    break;
+                case 12:
+                    hex = "c" + hex;
+                    break;
+                case 13:
+                    hex = "d" + hex;
+                    break;
+                case 14:
+                    hex = "e" + hex;
+                    break;
+                case 15:
+                    hex = "f" + hex;
+                    break;
+                default:
+                    hex = QString::number(number % 16) + hex;
+                }
+
+                number /= 16;
+            }
+
+            // to make our work easier. OUR? sorry! mine :)
+            if (hex.length() < 2) { hex = '0' + hex; }
+            new_message += hex;
+        }
+    }
+    return new_message;
 }
 
 // CONVERT from hex to decimal
-QString fromHEX(QString message);
-{
-    // ...
-}
+//QString fromHEX(QString message);
+//{
+//    // ...
+//}
 
 Polybius::Polybius(QWidget *parent) :
     QDialog(parent),
@@ -209,7 +261,7 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
         else
         {
             // Rewrite actual content in decimal from hex.
-            text = fromHEX(text);
+            //text = fromHEX(text);
         }
     }
 
