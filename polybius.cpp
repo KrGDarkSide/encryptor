@@ -160,6 +160,7 @@ QString toHEX(QString message)
                     break;
                 default:
                     hex = QString::number(number % 16) + hex;
+                    break;
                 }
 
                 number /= 16;
@@ -174,10 +175,40 @@ QString toHEX(QString message)
 }
 
 // CONVERT from hex to decimal
-//QString fromHEX(QString message);
-//{
-//    // ...
-//}
+QString fromHEX(QString message)
+{
+    QString new_message = "";
+
+    // We're starting from 2 because 0 and 1 is reserved for sign and odd number.
+    for (int i = 2; i < message.length(); i += 2)
+    {
+        if (message[i] == ':') { new_message += ':' + message[i + 1]; }
+        else
+        {
+            QString actual_char = message.mid(i, 2);
+            int num = 0;
+
+            if (actual_char[0] == 'a') { num += 10 * 16; }
+            else if (actual_char[0] == 'b') { num += 11 * 16; }
+            else if (actual_char[0] == 'c') { num += 12 * 16; }
+            else if (actual_char[0] == 'd') { num += 13 * 16; }
+            else if (actual_char[0] == 'e') { num += 14 * 16; }
+            else if (actual_char[0] == 'f') { num += 15 * 16; }
+            else { num += actual_char[0].digitValue() * 16; }
+
+            if (actual_char[1] == 'a') { num += 10; }
+            else if (actual_char[1] == 'b') { num += 11; }
+            else if (actual_char[1] == 'c') { num += 12; }
+            else if (actual_char[1] == 'd') { num += 13; }
+            else if (actual_char[1] == 'e') { num += 14; }
+            else if (actual_char[1] == 'f') { num += 15; }
+            else { num += actual_char[1].digitValue(); }
+
+            new_message += QString::number(num);
+        }
+    }
+    return new_message;
+}
 
 Polybius::Polybius(QWidget *parent) :
     QDialog(parent),
@@ -261,7 +292,7 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
         else
         {
             // Rewrite actual content in decimal from hex.
-            //text = fromHEX(text);
+            text = fromHEX(text);
         }
     }
 
