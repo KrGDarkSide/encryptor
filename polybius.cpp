@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QDataStream>
 
 const int alphabet[] = { 0x61, 0x105, 0x62, 0x63, 0x107, 0x64, 0x65, 0x119, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x142, 0x6d, 0x6e, 0x144, 0x6f, 0xf3, 0x70, 0x71, 0x72, 0x73, 0x15b, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x17a, 0x17c };
 QChar square[5][7];
@@ -373,5 +375,96 @@ void Polybius::on_Button_decrypt_clicked()
         QString decrypted_message = polibius_square_decryption(text, square);
         ui->textEdit4->append(decrypted_message);
     }
+}
+
+
+void Polybius::on_pushButton1_clicked()
+{
+    // Set title and files posible to save.
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save table"), "", tr("Polybius square (*.encps);;All Files (*)"));
+
+    if (fileName.isEmpty()) { return; }
+    else
+    {
+        // Take file name and open sile to write.
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            QMessageBox::information(this, tr("Unable to open file"), file.errorString());
+        }
+
+        QTextStream out(&file);
+        // Set encoding to UTF-8 (because we use letters like 'ą', 'ó').
+        out.setEncoding(QStringConverter::Utf8);
+
+        // Pass the contents of the array to the file.
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                out << square[i][j];
+            }
+            out << "\n";
+        }
+
+        // Cloase file stream.
+        file.close();
+    }
+}
+
+
+void Polybius::on_pushButton5_clicked()
+{
+    Polybius::on_pushButton1_clicked();
+}
+
+
+void Polybius::on_pushButton3_clicked()
+{
+    // Prepare dialog
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Import table"), "", tr("Polybius square (*.encps);;All Files (*)"));
+
+    if (fileName.isEmpty()){ return; }
+    else
+    {
+        // Get file name
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            QMessageBox::information(this, tr("Unable to open file"), file.errorString());
+        }
+
+        QTextStream in(&file);
+        in.setEncoding(QStringConverter::Utf8);
+        int row = 0;
+
+        // Read file line by line till end of file.
+        for (QString line = in.readLine(); !line.isNull(); line = in.readLine(), row++)
+        {
+            for (int i = 0; i < line.length(); i++)
+            {
+                square[row][i] = line[i];
+            }
+        }
+
+        // Close file stream.
+        file.close();
+
+        // Fill content with chousen file
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                ui->tableWidget1->setItem(i, j, new QTableWidgetItem(square[i][j]));
+                ui->tableWidget2->setItem(i, j, new QTableWidgetItem(square[i][j]));
+            }
+        }
+    }
+}
+
+
+void Polybius::on_pushButton4_clicked()
+{
+    Polybius::on_pushButton3_clicked();
 }
 

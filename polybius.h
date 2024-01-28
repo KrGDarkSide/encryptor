@@ -22,6 +22,14 @@ private slots:
 
     void on_Button_decrypt_clicked();
 
+    void on_pushButton1_clicked();
+
+    void on_pushButton5_clicked();
+
+    void on_pushButton3_clicked();
+
+    void on_pushButton4_clicked();
+
 private:
     Ui::Polybius *ui;
 };
