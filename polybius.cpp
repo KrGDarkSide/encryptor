@@ -367,7 +367,7 @@ void Polybius::on_Button_decrypt_clicked()
 
     QString text = (ui->textEdit3->toPlainText()).toLower();
     // REGULAR EXPRESSION
-    static QRegularExpression rx("^([#0-9]+[:0-9a-f]*)$");
+    static QRegularExpression rx("^([#0-9][:0-9a-f]*)$");
 
     if (text.isEmpty())
     {
