@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDataStream>
+#include <QRegularExpressionValidator>
 
 const int alphabet[] = { 0x61, 0x105, 0x62, 0x63, 0x107, 0x64, 0x65, 0x119, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x142, 0x6d, 0x6e, 0x144, 0x6f, 0xf3, 0x70, 0x71, 0x72, 0x73, 0x15b, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x17a, 0x17c };
 QChar square[5][7];
@@ -365,6 +366,8 @@ void Polybius::on_Button_decrypt_clicked()
     ui->textEdit4->clear();
 
     QString text = (ui->textEdit3->toPlainText()).toLower();
+    // REGULAR EXPRESSION
+    static QRegularExpression rx("^([#0-9]+[:0-9a-f]*)$");
 
     if (text.isEmpty())
     {
@@ -372,8 +375,15 @@ void Polybius::on_Button_decrypt_clicked()
     }
     else
     {
-        QString decrypted_message = polibius_square_decryption(text, square);
-        ui->textEdit4->append(decrypted_message);
+        if (!text.contains(rx))
+        {
+            QMessageBox::warning(this, "Warning", "Invalid input!!!", QMessageBox::Ok);
+        }
+        else
+        {
+            QString decrypted_message = polibius_square_decryption(text, square);
+            ui->textEdit4->append(decrypted_message);
+        }
     }
 }
 

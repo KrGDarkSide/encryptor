@@ -388,7 +388,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Resoult</string>
+    <string>Result</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="textEdit2">
@@ -855,7 +855,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Resoult</string>
+    <string>Result</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton5">

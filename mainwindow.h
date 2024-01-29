@@ -22,6 +22,8 @@ private slots:
 
     void on_Button_info_clicked();
 
+    void on_Button_Homophonic_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

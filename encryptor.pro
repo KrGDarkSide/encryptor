@@ -10,17 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     caesar.cpp \
+    homophonic.cpp \
     main.cpp \
     mainwindow.cpp \
     polybius.cpp
 
 HEADERS += \
     caesar.h \
+    homophonic.h \
     mainwindow.h \
     polybius.h
 
 FORMS += \
     caesar.ui \
+    homophonic.ui \
     mainwindow.ui \
     polybius.ui
 

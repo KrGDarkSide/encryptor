@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include "caesar.h"
 #include "polybius.h"
+#include "homophonic.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -54,9 +55,20 @@ void MainWindow::on_Button_Polybius_clicked()
     polybiusWindow.exec();
 }
 
+// Button linking to the Homophonic cipher
+void MainWindow::on_Button_Homophonic_clicked()
+{
+    // hide main window
+    hide();
+    Homophonic homophonicWindow;
+    homophonicWindow.setModal(true);
+    // Disable possibility of resizing window
+    homophonicWindow.setFixedSize(homophonicWindow.size());
+    homophonicWindow.exec();
+}
+
 // Open dialogbox with informations {version, autho ...}
 void MainWindow::on_Button_info_clicked()
 {
     QMessageBox::information(this, "Informations", "<strong>encryptor</strong><table><tr><td>Version:</td><td>0.0.1</td></tr><tr><td>Creator:</td><td>Krystian Grzesiak<td></tr><tr><td>Contact:</td><td>jul.mdama08@gmail.com</td></tr></table>", QMessageBox::Ok);
 }
-
