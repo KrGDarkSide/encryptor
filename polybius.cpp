@@ -289,13 +289,33 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
     {
         if (text[1].digitValue() % 2 == 0 || text[1].digitValue() == 0)
         {
-            // Rewrite actual content of text variable with converted from Octal.
-            text = fromOCT(text);
+            int w = 0;
+
+            for (int i = 2; i < text.length(); i++)
+            {
+                if (text[i] == ':') { i++; }
+                else { w++; }
+            }
+
+            if (w % 3 == 0)
+            {
+                // Rewrite actual content of text variable with converted from Octal.
+                text = fromOCT(text);
+            }
+            else
+            {
+                return "--#ERROR--";
+            }
+
         }
-        else
+        else if ( (text[1].digitValue() % 2 != 0) && (text.length() - 2 / 2 == 0) )
         {
             // Rewrite actual content in decimal from hex.
             text = fromHEX(text);
+        }
+        else
+        {
+            return "--#ERROR--";
         }
     }
 
@@ -367,7 +387,7 @@ void Polybius::on_Button_decrypt_clicked()
 
     QString text = (ui->textEdit3->toPlainText()).toLower();
     // REGULAR EXPRESSION
-    static QRegularExpression rx("^([#0-9][:0-9a-f]*)$");
+    static QRegularExpression rx("^([:#0-9][:0-9a-f]*)$");
 
     if (text.isEmpty())
     {
