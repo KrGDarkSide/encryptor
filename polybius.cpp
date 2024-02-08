@@ -308,7 +308,7 @@ QString polibius_square_decryption(QString text, QChar arr[5][7])
             }
 
         }
-        else if ( (text[1].digitValue() % 2 != 0) && (text.length() - 2 / 2 == 0) )
+        else if ( (text[1].digitValue() % 2 != 0) && (text.length() - 2) % 2 == 0 )
         {
             // Rewrite actual content in decimal from hex.
             text = fromHEX(text);

@@ -40,52 +40,75 @@ Homophonic::~Homophonic()
 
 
 // Create multiMap that as keys have alphabet characters and as values numbers from 0 to 999.
-QMultiMap<QChar, int> create_alphabetMap(QString &key)
+QMultiMap<QChar, int> create_alphabetMap(QString &keyW)
 {
     QMultiMap<QChar, int> map;
     int num = 0;
 
-    // Fill multiMap with numbers depending on the key word
-    for (int i = 0; i < key.length(); i++)
+    // Filling MultiMap by only key word.
+    for (int i = 0; i < keyW.length(); i++)
     {
-        bool find_kLetter = false;
+        // Finding start indexes for key letters
+        int index;
         for (int j = 0; j < 35; j++)
         {
-            if (key[i] == QChar(alphabet[j]))
+            if (keyW[i] == QChar(alphabet[j]))
             {
-                map.insert(QChar(alphabet[j]), num);
-                num++;
-                find_kLetter = true;
-            }
-            if (find_kLetter)
-            {
-                if (j == 34)
-                {
-                    j = -1;
-                }
-                map.insert(QChar(alphabet[j]), num);
-                num++;
-            }
-        }
-    }
-
-    // After used key word start filling multimap form 'a' to 'ż' by numbers till num will be 999.
-    while (num != 999)
-    {
-        for (int i = 0; i < 35; i++)
-        {
-            map.insert(QChar(alphabet[i]), num);
-            num++;
-            if (num >= 999)
-            {
+                index = j;
                 break;
             }
         }
+        for (int j = 0; j < 35 ; j++)
+        {
+            if (index == 35) { index = 0; }
+            map.insert(QChar(alphabet[index]), num);
+            index++;
+            num++;
+        }
     }
+
+//    // Fill multiMap with numbers depending on the key word
+//    for (int i = 0; i < keyW.length(); i++)
+//    {
+//        bool find_kLetter = false;
+//        for (int j = 0; j < 35; j++)
+//        {
+//            if (keyW[i] == QChar(alphabet[j]))
+//            {
+//                map.insert(QChar(alphabet[j]), num);
+//                num++;
+//                find_kLetter = true;
+//            }
+//            if (find_kLetter)
+//            {
+//                if (j == 34)
+//                {
+//                    j = -1;
+//                }
+//                map.insert(QChar(alphabet[j]), num);
+//                num++;
+//            }
+//        }
+//    }
+
+//    // After used key word start filling multimap form 'a' to 'ż' by numbers till num will be 999.
+//    while (num != 999)
+//    {
+//        for (int i = 0; i < 35; i++)
+//        {
+//            map.insert(QChar(alphabet[i]), num);
+//            num++;
+//            if (num >= 999)
+//            {
+//                break;
+//            }
+//        }
+//    }
 
     return map;
 }
 
+// Making values which is made from 3 characters. For example 007
 QString prepare_value(int val)
 {
     QString new_value = QString::number(val);
@@ -96,12 +119,12 @@ QString prepare_value(int val)
     return new_value;
 }
 
-QString homophonic_encryption(QString text, QString key)
+QString homophonic_encryption(QString text, QString keyW)
 {
-    QMultiMap<QChar, int> alphabetMap = create_alphabetMap(key);
+    QMultiMap<QChar, int> alphabetMap = create_alphabetMap(keyW);
     QString new_word = "";
 
-    for (int i = 0; i < text.length(); i++)
+    /*for (int i = 0; i < text.length(); i++)
     {
         QList<int> key_values;
         for (auto x = alphabetMap.begin(); x != alphabetMap.end(); x++)
@@ -115,7 +138,10 @@ QString homophonic_encryption(QString text, QString key)
         // generate pseudo random number
         int index = rand() % key_values.size();
         new_word += prepare_value(key_values.at(index));
-    }
+    }*/
+
+    for (auto i = alphabetMap.cbegin(), end = alphabetMap.cend(); i != end; ++i)
+        new_word += QString(i.key()) + ":" + QString::number(i.value()) + " --> ";
 
     return new_word;
 }
@@ -125,6 +151,9 @@ QString homophonic_encryption(QString text, QString key)
 // ENCRYPT button
 void Homophonic::on_En_Button_clicked()
 {
+    // Clear read only field
+    ui->En_outputText->clear();
+
     // Take text from QTextEdit and convert it to lowercase
     QString text = (ui->En_inputText->toPlainText()).toLower();
     QString key = (ui->En_inputKey->text()).toLower();
