@@ -100,11 +100,15 @@ QString prepare_value(int val)
 int unpak_value(QString val)
 {
     int new_value;
-    bool ok;
 
-    if (val[1] == '0') { new_value = val[2].digitValue(); }
+    if (val[0] == '0' && val[1] == '0') { new_value = val[2].digitValue(); }
     else if (val[0] == '0') { new_value = val[1].digitValue() * 10 + val[2].digitValue(); }
-    else { new_value = val.toInt(&ok); }
+    else
+    {
+        new_value = val[0].digitValue() * 100;
+        new_value += val[1].digitValue() * 10;
+        new_value += val[2].digitValue();
+    }
 
     return new_value;
 }
@@ -155,6 +159,7 @@ QString homophonic_Decryption(QString &text, QString &keyW)
             if (x.value() == char_value)
             {
                 new_word += x.key();
+                break;
             }
             else { continue; }
         }
