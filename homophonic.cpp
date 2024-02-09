@@ -96,7 +96,20 @@ QString prepare_value(int val)
     return new_value;
 }
 
-QString homophonic_encryption(QString text, QString keyW)
+// Clean values (delete 0 prefix)
+int unpak_value(QString val)
+{
+    int new_value;
+    bool ok;
+
+    if (val[1] == '0') { new_value = val[2].digitValue(); }
+    else if (val[0] == '0') { new_value = val[1].digitValue() * 10 + val[2].digitValue(); }
+    else { new_value = val.toInt(&ok); }
+
+    return new_value;
+}
+
+QString homophonic_encryption(QString &text, QString &keyW)
 {
     QMultiMap<QChar, int> alphabetMap = create_alphabetMap(keyW);
     QString new_word = "";
@@ -127,6 +140,29 @@ QString homophonic_encryption(QString text, QString keyW)
     return new_word;
 }
 
+QString homophonic_Decryption(QString &text, QString &keyW)
+{
+    QMultiMap<QChar, int> alphabetMap = create_alphabetMap(keyW);
+    QString new_word = "";
+
+    for (int i = 0; i < text.length();  i+=3)
+    {
+        // "Convert" string to int
+        int char_value = unpak_value(text.mid(i, 3));
+
+        for (auto x = alphabetMap.begin(); x != alphabetMap.end(); x++)
+        {
+            if (x.value() == char_value)
+            {
+                new_word += x.key();
+            }
+            else { continue; }
+        }
+    }
+
+    return new_word;
+}
+
 
 
 // ENCRYPT button
@@ -137,27 +173,56 @@ void Homophonic::on_En_Button_clicked()
 
     // Take text from QTextEdit and convert it to lowercase
     QString text = (ui->En_inputText->toPlainText()).toLower();
-    QString key = (ui->En_inputKey->text()).toLower();
+    QString keyW = (ui->En_inputKey->text()).toLower();
 
     // Check if text and key are empty
     if(text.isEmpty())
     {
         QMessageBox::warning(this, "Warning", "To encrypt a message, you must provide some text to be encrypted!", QMessageBox::Ok);
     }
-    else if (key.isEmpty() || key.length() < 2)
+    else if (keyW.isEmpty() || keyW.length() < 2)
     {
         QMessageBox::warning(this, "Warning", "You need to enter the key!\nKey can contain only letters (2-28).", QMessageBox::Ok);
     }
     else
     {
-        ui->En_outputText->append(homophonic_encryption(text, key));
+        ui->En_outputText->append(homophonic_encryption(text, keyW));
     }
 }
 
 // DECRYPT button
 void Homophonic::on_De_Button_clicked()
 {
+    // RegEx
+    static QRegularExpression rx("^([0-9]{3})*$");
 
+    // Clear read only field
+    ui->De_outputText->clear();
+
+    // Take inserted text and keyword and convert it to lowercase
+    QString text = (ui->De_inputText->toPlainText()).toLower();
+    QString keyW = (ui->De_inputKey->text()).toLower();
+
+    // Check if keyword and inserted test are empty
+    if(text.isEmpty())
+    {
+        QMessageBox::warning(this, "Warning", "To encrypt a message, you must provide some text to be encrypted!", QMessageBox::Ok);
+    }
+    else if (keyW.isEmpty() || keyW.length() < 2)
+    {
+        QMessageBox::warning(this, "Warning", "You need to enter the key!\nKey can contain only letters (2-28).", QMessageBox::Ok);
+    }
+    else
+    {
+        if(!text.contains(rx))
+        {
+            QMessageBox::warning(this, "Warning", "Only numeric characters may be entered!\n(The number of characters must be divisible by three)", QMessageBox::Ok);
+        }
+        else
+        {
+            ui->De_outputText->append(homophonic_Decryption(text, keyW));
+        }
+    }
 }
 
 
