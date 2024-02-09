@@ -39,16 +39,16 @@ Homophonic::~Homophonic()
 
 
 
-// Create multiMap that as keys have alphabet characters and as values numbers from 0 to 999.
+// Create a MultiMap that, as keys, has alphabetic characters and values from 0 to 999.
 QMultiMap<QChar, int> create_alphabetMap(QString &keyW)
 {
     QMultiMap<QChar, int> map;
     int num = 0;
 
-    // Filling MultiMap by only key word.
+    // Fill the MultiMap by only key word.
     for (int i = 0; i < keyW.length(); i++)
     {
-        // Finding start indexes for key letters
+        // Find start indexes for key letters
         int index;
         for (int j = 0; j < 35; j++)
         {
@@ -67,43 +67,20 @@ QMultiMap<QChar, int> create_alphabetMap(QString &keyW)
         }
     }
 
-//    // Fill multiMap with numbers depending on the key word
-//    for (int i = 0; i < keyW.length(); i++)
-//    {
-//        bool find_kLetter = false;
-//        for (int j = 0; j < 35; j++)
-//        {
-//            if (keyW[i] == QChar(alphabet[j]))
-//            {
-//                map.insert(QChar(alphabet[j]), num);
-//                num++;
-//                find_kLetter = true;
-//            }
-//            if (find_kLetter)
-//            {
-//                if (j == 34)
-//                {
-//                    j = -1;
-//                }
-//                map.insert(QChar(alphabet[j]), num);
-//                num++;
-//            }
-//        }
-//    }
-
-//    // After used key word start filling multimap form 'a' to 'ż' by numbers till num will be 999.
-//    while (num != 999)
-//    {
-//        for (int i = 0; i < 35; i++)
-//        {
-//            map.insert(QChar(alphabet[i]), num);
-//            num++;
-//            if (num >= 999)
-//            {
-//                break;
-//            }
-//        }
-//    }
+    // Fill the multimap with the remaining numbers starting from a to z
+    while (num != 999)
+    {
+        for (int i = 0; i < 35; i++)
+        {
+            if (num == 999)
+            {
+                map.insert(QChar(alphabet[i]), num);
+                break;
+            }
+            map.insert(QChar(alphabet[i]), num);
+            num++;
+        }
+    }
 
     return map;
 }
@@ -124,7 +101,7 @@ QString homophonic_encryption(QString text, QString keyW)
     QMultiMap<QChar, int> alphabetMap = create_alphabetMap(keyW);
     QString new_word = "";
 
-    /*for (int i = 0; i < text.length(); i++)
+    for (int i = 0; i < text.length(); i++)
     {
         QList<int> key_values;
         for (auto x = alphabetMap.begin(); x != alphabetMap.end(); x++)
@@ -133,15 +110,19 @@ QString homophonic_encryption(QString text, QString keyW)
             {
                 key_values.append(x.value());
             }
+            else { continue; }
         }
 
-        // generate pseudo random number
-        int index = rand() % key_values.size();
-        new_word += prepare_value(key_values.at(index));
-    }*/
+        // generate pseudo random number if key_value is not null
+        if (!key_values.empty())
+        {
+            int index = rand() % key_values.size();
+            new_word += prepare_value(key_values.at(index));
+        }
+    }
 
-    for (auto i = alphabetMap.cbegin(), end = alphabetMap.cend(); i != end; ++i)
-        new_word += QString(i.key()) + ":" + QString::number(i.value()) + " --> ";
+//    for (auto i = alphabetMap.cbegin(), end = alphabetMap.cend(); i != end; ++i)
+//        new_word += QString(i.key()) + ":" + QString::number(i.value()) + " --> ";
 
     return new_word;
 }
